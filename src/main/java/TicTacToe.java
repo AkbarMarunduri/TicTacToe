@@ -3,8 +3,7 @@ import java.util.*;
 public class TicTacToe {
     static ArrayList<Integer> playerPosisions = new ArrayList<Integer>();
     static ArrayList<Integer> cpuPosisions = new ArrayList<Integer>();
-
-
+    
     public static void main(String[] args) {
         char[][] gameBoard =
                        {{' ', '|', ' ', '|', ' '},
