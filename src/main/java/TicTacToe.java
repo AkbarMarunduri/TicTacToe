@@ -4,6 +4,7 @@ public class TicTacToe {
     static ArrayList<Integer> playerPosisions = new ArrayList<Integer>();
     static ArrayList<Integer> cpuPosisions = new ArrayList<Integer>();
     
+    //membuat layout papan game
     public static void main(String[] args) {
         char[][] gameBoard =
                        {{' ', '|', ' ', '|', ' '},
@@ -12,9 +13,11 @@ public class TicTacToe {
                         {'-', '+', '-', '+', '-'},
                         {' ', '|', ' ', '|', ' '}};
 
+        //print layout game
         printGameBoard(gameBoard);
+        
+        //melakukan scan untuk input player 
         Scanner scanner = new Scanner(System.in);
-
         while (true) {
             // input dari player
             System.out.println(" _________");
@@ -23,7 +26,7 @@ public class TicTacToe {
             System.out.print(" =>Masukkan pilihan anda : ");
             int playerPos = scanner.nextInt();
             System.out.println(" =>Player memilih kolom no : " + playerPos + "");
-
+            //pengecekan input player apakah sudah pernah ada atau belum
             while (playerPosisions.contains(playerPos) || cpuPosisions.contains(playerPos) || playerPos > 9) {
                 System.out.println(" =>Maaf!!.. kolom " + playerPos + " sudah terisi!!");
                 System.out.print(" =>Pilih ulang kolom : ");
@@ -31,9 +34,9 @@ public class TicTacToe {
                 System.out.println(" =>Player memilih kolom no : " + playerPos);
             }
             System.out.println("+------------------------------------------+");
-
+            //mengisi kolom yang dipilih dan mengisi array posisi
             isiKolomGameBoard(gameBoard, playerPos, "player");
-
+            //memeriksa hasil setelah input player
             String result = checkWinner();
             if (result.length() > 0) {
                 System.out.println("");
@@ -43,21 +46,23 @@ public class TicTacToe {
                 break;
             }
 
-            //input dapi computer
+            //input dari CPU menggunakan metode random
             System.out.println("");
             System.out.println(" _________");
             System.out.println("| CPU     |--------------------------------+");
             Random random = new Random();
             int cpuPos = random.nextInt(9) + 1;
+            //memeriksa inputan CPU apakah sudah ada sebelumnya atau tidak
             while (cpuPosisions.contains(cpuPos) || playerPosisions.contains(cpuPos)) {
                 cpuPos = random.nextInt(9) + 1;
             }
             System.out.println(" =>CPU memilih kolom no : " + cpuPos);
             System.out.println("+------------------------------------------+");
             System.out.println("");
+            //menginput kolom yang dipilih CPU
             isiKolomGameBoard(gameBoard, cpuPos, "cpu");
             printGameBoard(gameBoard);
-
+            //cek kemenangan setelah inputan CPU
             result = checkWinner();
             if (result.length() > 0) {
                 System.out.println(result);
@@ -120,6 +125,7 @@ public class TicTacToe {
     }
 
     public static String checkWinner() {
+        //membbuat list untuk syarat kemenangan
         List topRow = Arrays.asList(1, 2, 3);
         List midRow = Arrays.asList(4, 5, 6);
         List botRow = Arrays.asList(7, 8, 9);
@@ -128,7 +134,8 @@ public class TicTacToe {
         List rigCou = Arrays.asList(3, 6, 9);
         List diaRo1 = Arrays.asList(1, 5, 9);
         List diaRo2 = Arrays.asList(3, 5, 7);
-
+        
+        //memasukkan list kedalam arraylist
         List<List> winning = new ArrayList<List>();
         winning.add(topRow);
         winning.add(midRow);
@@ -138,7 +145,8 @@ public class TicTacToe {
         winning.add(rigCou);
         winning.add(diaRo1);
         winning.add(diaRo2);
-
+        
+        //membandingkan apakah 
         for (List w : winning) {
             if (playerPosisions.containsAll(w)) {
                 return "Congratulattion you Winn";
